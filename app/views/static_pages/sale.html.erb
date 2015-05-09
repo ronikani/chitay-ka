@@ -1,0 +1,25 @@
+ <h4 class="column formi">Скидки</h4>
+      <div class="column ">
+          <ul class="movies-grid no-bullet row">
+            <% @products.each do |product| %>
+            	<% if product.sale? %>
+               	 <li class="large-3 medium-4 small-12 column pages" >
+                  <div class="movie-card padly">
+                  <div class="ribbon-wrapper-red"><div class="ribbon-red">Скидки</div></div>
+                    <%= link_to product, class: "poster" do %>
+                        <%= image_tag product.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= product.title %></h6>
+                      </div>
+                      <div class="label movie-label radius mb1"> Цена: <%= product.price %>руб.</div>
+     				         <div class="label1 movie-label radius mb1">Цена до: <%= product.old_price %>руб.</div>
+                    </div>
+                  </div>
+                </li>
+            <% end %>
+           <% end %> 
+          </ul>
+        </div>
+        </br>

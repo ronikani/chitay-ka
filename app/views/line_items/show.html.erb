@@ -1,0 +1,32 @@
+<%if signed_in?%>
+    <h3 class="booking">Заказ</h3>
+    <p class="booking">(<%= @order.status %>)</p>
+    <table class="features-table">
+         <thead>
+           <tr>
+             <th>Название</th>
+             <th>Количество</th>
+             <th>Дата</th>
+             <th>Адрес</th>
+           </tr>
+         </thead>
+
+          <% LineItem.where(order_id: @order.id).each do |line_item| %>
+            <% Product.where(id: line_item.product_id).each do |product| %>
+              <tbody>
+                <tr>
+                  <td class="grey"><%= link_to product.title, product %></td>
+                  <td><%= line_item.quantity %></td>
+                  <td><%= @order.created_at %></td>
+                  <td><%= @order.adress %></td>
+                  <% if current_user.admin? %>
+                    <td><%= link_to "Изменить статус заказа", edit_order_path(@order) %></td>
+                  <% end %>  
+                </tr>
+            <% end %>
+          <% end %>
+            </tbody>
+    </table>
+
+    <%= link_to 'Назад', orders_path %>
+<% end %>

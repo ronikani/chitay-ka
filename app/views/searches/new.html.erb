@@ -1,0 +1,55 @@
+
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+	<h3 class="formi">Поиск</h3>
+
+	<%= form_for @search, :html => { :multipart => true} do |s| %>
+
+		<div class="field">
+			<%= s.label :keywords, "Ключевое слово" %><br>
+			<%= s.text_field :keywords %>
+		</div>
+
+	 	<div class="field">
+		    <%= s.label :category_id , "Категория" %><br />
+		    <%= collection_select(:search,:category_id,@categories,:id,:title, {}, id: "placeholder-example")%>
+	    </div>
+
+		<div class="field">
+			<%= s.label :author_id , "Автор" %><br>
+			<%= collection_select(:search,:author_id,@authors,:id,:full_name, {}, id: "placeholder-example") %>
+		</div>
+
+		<div class="field">
+			<%= s.label :min_price, "Минимальная цена"  %><br>
+			<%= s.text_field :min_price, size: 10 %>
+		</div>
+
+		<div class="field">
+			<%= s.label :max_price, "Максимальная цена"  %><br>
+			<%= s.text_field :max_price, size: 10 %>
+		</div>
+
+		<div class="field">
+			<%= s.label :isbn, "ISBN"  %><br>
+			<%= s.text_field :isbn, size: 10 %>
+		</div>
+
+		<div class="actions">
+			<%= s.submit "Поиск" %>
+		</div>
+
+	<% end %>
+  </div>	
+</div>
+<p><%= link_to "Назад", products_path %></p>
+	
+
+<script>
+   $(document).ready(function() {
+  	$('select#placeholder-example').select2({
+      placeholder: "Choose a person",
+      allowClear: true
+  });
+});
+</script>

@@ -1,0 +1,56 @@
+
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+    <%= form_for(@order) do |f| %>
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+          <ul>
+          <% @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+     <% end %>
+
+      <div class="field">
+        <%= f.label :first_name, "Имя" %><br>
+        <%= f.text_field :first_name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :last_name, "Фамилия" %><br>
+        <%= f.text_field :last_name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :phone, "Номер телефона" %><br>
+        <%= f.text_field :phone %>
+      </div>
+
+      <div class="field">
+        <%= f.label :country, "Страна" %><br>
+        <%= f.text_field :country %>
+      </div>
+
+      <div class="field">
+        <%= f.label :city, "Город" %><br>
+        <%= f.text_field :city %>
+      </div>
+
+      <div class="field">
+        <%= f.label :adress, "Улица и дом" %><br>
+        <%= f.text_field :adress %>
+      </div>
+
+      
+
+      <div class="actions">
+        <%= f.submit "Оформить"%>
+      </div>
+
+
+    <% end %>
+</div>
+</div>

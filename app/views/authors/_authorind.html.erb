@@ -1,0 +1,19 @@
+<h4 class="column formi">Авторы</h4>
+        <div class="column">
+          <ul class="movies-grid no-bullet row">
+            <% @authors.each do |author| %>
+                <li class="large-3 medium-4 small-12 column">
+                  <div class="movie-card padly">
+                    <%= link_to author, class: "poster" do %>
+                        <%= image_tag author.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= author.full_name %></h6>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            <% end %>
+          </ul>
+        </div>

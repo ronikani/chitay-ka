@@ -1,0 +1,59 @@
+<div class="pages">
+  <div class="large-3 medium-4 small-12 column pages ">
+  <% if @product.new? %>
+    <div class="ribbon-wrapper-green"><div class="ribbon-green">Новинка</div></div>
+  <% end %>
+  <% if @product.sale? %>
+    <div class="ribbon-wrapper-red"><div class="ribbon-red">Скидки</div></div>
+  <% end %>
+    <%=image_tag @product.photo.url %>
+  </div>
+
+  <div class="large-9 small-12 column">
+    <h4> <%= @product.title %>
+        (<%= link_to Author.find(@product.author_id).full_name, author_path(@product.author_id) %>)
+    </h4>
+    <div>Категория: <%= link_to Category.find(@product.category_id).title, category_path(@product.category_id)%></div>
+    <div>ISBN: <%= @product.isbn %></div>
+    <div>Издательство: <%= @product.publishing %></div>
+    <div>Обложка: <%= @product.cover %></div>
+    </br>
+    <% if @product.sale? %>
+      <div class="label movie-label radius mb1"> Цена: <%= @product.price %>руб.</div>
+      <div class="label1 movie-label radius mb1">Старая цена: <%= @product.old_price %>руб.</div>
+    <% else %>  
+      <div class="label movie-label radius mb1"> Цена: <%= @product.price %>руб.</div>
+    <% end %>  
+    <%if signed_in?%>
+      <% if not current_user.admin? %> 
+         <% if @product.quantity > 0 %>  
+        <div >  <%= button_to "Добавить в корзину", line_items_path(product_id: @product.id) , class: "mebtn" %></div>
+        <% else %>
+        <p>Товара нет в наличии</p>
+        <% end %>
+      <% end %>
+    <% end %>    
+    <div class="bordera"><h5> Описание </h5></div>
+    <p class="texti"><%= @product.description %></p>  
+    <div class="bordera"><h5> Экранизации </h5></div>
+
+    <div class="filming">
+       <%= @product.filming %>
+    </div>
+
+   </br>
+  </div>
+
+
+<%if signed_in?%>
+  <% if  current_user.admin? %>
+    <%= link_to 'Редактировать', edit_product_path(@product) %> |
+    <%= link_to 'Удалить', product_path(@product), method: :delete, data: { confirm: 'Вы уверены?' } %> |
+  <% end %>
+<% end %>    
+
+  <%= link_to 'Назад', products_path %>
+</div>
+
+
+

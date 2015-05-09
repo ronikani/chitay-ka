@@ -1,0 +1,25 @@
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+    <%= form_for(@category) do |f| %>
+      <% if @category.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+          <ul>
+          <% @category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :title, "Название" %><br>
+        <%= f.text_field :title %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Сохранить"%>
+      </div>
+    <% end %>
+  </div>
+</div>  

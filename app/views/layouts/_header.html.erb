@@ -1,0 +1,73 @@
+<div class="row">
+  <nav class="top-bar column" data-topbar>
+ 
+      <ul class="title-area">
+        <li class="name">
+          <h1>
+            <div class="logo">
+              <%= link_to products_path, class: "poster" do %>
+               <%= image_tag 'logo.png', class: "logi" %>
+          <% end %>
+        </div>
+          </h1>
+        </li>
+        <li class="searchi">
+          <%= form_tag products_path, :method => 'get' do %>
+          <%= hidden_field_tag :direction, params[:direction] %>
+          <%= hidden_field_tag :sort, params[:sort] %>
+          <%= text_field_tag :search, params[:search] %>
+          <% end %>
+        </li>
+
+        <li class="toggle-topbar"><a href="#"><span>Menu</span></a></li>
+
+      </ul>
+
+      <section class="top-bar-section">
+        <ul class="right">
+            <%if signed_in?%>
+              <li>
+               <%if signed_in?%>
+                  <% if not current_user.admin? %>
+                    <% if !session[:cart_id].nil? %>
+                      <%= link_to "Корзина", Cart.find(session[:cart_id]) %>
+                        <% else %>
+                      <%= link_to "Корзина", Cart.new %>
+                    <% end %> 
+                <% end %>
+                <li><%= link_to "Заказы", orders_path %></li>  
+              <% end %>    
+              </li>
+              <li><%=link_to current_user.email, edit_user_registration_path%></li>
+              <li><%=link_to "Выйти", destroy_user_session_path, method: :delete%></li>
+            <%else%>
+              <li><%=link_to "Регистрация", new_user_registration_path%></li>
+              <li><%=link_to "Войти", new_user_session_path%></li>
+            <%end%>
+          </ul>  
+      </section>
+
+    </nav>
+    </br>
+    <nav class="top-bar column" data-topbar>
+ 
+      <ul class="title-area">
+        <li class="toggle-topbar"><a href="#"><span>Menu</span></a></li>
+      </ul>
+           
+
+      <section class="top-bar-section bari">
+        <ul class="left">
+              <li><%= link_to "ГЛАВНАЯ",         imagehomes_path %></li> 
+              <li><%= link_to "КАТАЛОГ КНИГ",    products_path %></li> 
+              <li><%= link_to "АВТОРЫ",          authors_path %></li> 
+              <li><%= link_to "ЖАНРЫ",           categories_path %></li> 
+              <li><%= link_to "СКИДКИ",          static_pages_sale_path %></li>
+              <li><%= link_to "НОВИНКИ",         static_pages_newbook_path %></li>
+              <li><%= link_to "ПОИСК",           new_search_path %></li> 
+              <li><%= link_to "ПОМОЩЬ",          static_pages_help_path %></li>
+          </ul>  
+      </section>
+
+    </nav>
+</div>

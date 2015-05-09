@@ -1,0 +1,37 @@
+
+<%if signed_in?%>
+    <% if  current_user.admin? %>
+      <h4 class="column formi">Авторы</h4>
+        <table class="features-table">
+          <thead>
+            <tr>
+              <th>ФИО</th>
+              <th>Дата рождения</th>
+              <th><%= link_to 'Добавить', new_author_path, :class => "add" %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @authors.each do |author| %>
+              <tr>
+                <td class="grey"><%= link_to author.full_name, author %></td>
+                <td class="grey"><%= author.bith_day %></td>
+                <td><%= link_to 'Показать', author %></td>
+                <td><%= link_to 'Редактировать', edit_author_path(author) %></td>
+                <td><%= link_to 'Удалить', author, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+    <% else %>
+      <%= render "authors/authorind" %>
+    <% end %>
+  <% else %>
+    <%= render 'authorind' %>
+<%end%>
+
+<div class="pages">
+  <%= will_paginate @authors, :class => 'apple_pagination' %>
+</div>

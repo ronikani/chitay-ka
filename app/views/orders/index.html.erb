@@ -1,0 +1,108 @@
+
+<%if signed_in?%>
+  <% if not  current_user.admin? %>
+    <p id="notice"><%= notice %></p>
+
+    <h3 class="booking">Ваши заказы</h3>
+    <div class="pages">
+    <%= will_paginate @orders, :class => 'apple_pagination' %>
+ </div>
+   <table class="features-table">
+     <thead>
+       <tr>
+           <th>От кого</th>
+           <th>Почта</th>
+           <th>Телефон</th>
+           <th>Адрес</th>
+           <th>Дата</th>
+           <th>Статус</th>
+           <th></th>
+       </tr>
+     </thead>
+      <% Order.where(user_email: current_user.email).order("created_at DESC").each do |orderi| %>
+            <tbody>
+                  <tr>
+                    <td><%= orderi.first_name %> <%= orderi.last_name %></td>
+                    <td><%= orderi.user_email %></td>
+                    <td><%= orderi.phone %></td>
+                    <td><%= orderi.country %>, <%= orderi.city %>, <%= orderi.adress %></td>
+                    <td><%= orderi.created_at %></td>
+                    <td><%= orderi.status %></td>
+                    <td><%= link_to "Посмотреть", orderi %></td>
+                  </tr>
+              <% end %>
+     </tbody>
+    </table>
+  <% else %>
+    <table class="features-table">
+     <thead>
+       <tr>
+           <th>Заказы</th>
+           <th>Возврат</th>
+           <th>Недоставленные</th>
+           <th>Заказ на обработке</th>
+       </tr>
+     </thead>
+            <tbody>
+                  <tr>
+                    <td><%= @orders.count %></td>
+                    <td><%= @orders.where(:status => 'Возврат').count %></td>
+                    <td><%= @orders.where(:status => 'Недоставлен').count %></td>
+                    <td><%= @orders.where(:status => 'Заказ обрабатывается').count %></td>
+                  </tr>
+     </tbody>
+    </table>
+    <h3 class="booking">Заказы</h3>
+      <div class="pages">
+        <%= will_paginate @authors, :class => 'apple_pagination' %>
+      </div>
+
+<%= form_tag edit_multiple_orders_path do %>
+
+     <table class="features-table">
+       <thead>
+         <tr>
+           <th></th>
+           <th>От кого</th>
+           <th>Почта</th>
+           <th>Телефон</th>
+           <th>Адрес</th>
+           <th>Дата</th>
+           <th>Статус</th>
+           <th></th>
+         </tr>
+       </thead>
+           <% @orders.order("created_at DESC").each do |orderi| %>
+                <tbody>
+                  <tr>
+                    <td><%= check_box_tag "order_ids[]", orderi.id %></td>
+                    <td><%= orderi.first_name %> <%= orderi.last_name %></td>
+                    <td><%= orderi.user_email %></td>
+                    <td><%= orderi.phone %></td>
+                    <td><%= orderi.country %>, <%= orderi.city %>, <%= orderi.adress %></td>
+                    <td><%= orderi.created_at %></td>
+                    <td><%= orderi.status %></td>
+                    <td><%= link_to "Посмотреть", orderi %></td>
+                  </tr>
+              <% end %>
+       </tbody>
+      </table>
+      <%= submit_tag "Изменить/Удалить" %>
+      <% end %>
+
+
+     <div class="pages">
+        <%= will_paginate @orders, :class => 'apple_pagination' %>
+    </div>
+
+    <%= link_to 'Назад', products_path %> |
+    <%= link_to 'Статистика продаж', static_pages_static_order_path %> |
+    <%= link_to 'Возврат', vozvrat_orders_path %> |
+    <%= link_to 'Недоставленные', nedost_orders_path %> 
+
+  <% end %>
+  <% end %>
+    
+
+
+

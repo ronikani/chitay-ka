@@ -1,0 +1,62 @@
+
+<%if signed_in?%>
+  <% if  current_user.admin? %>
+    <h4 class="booking">Жанры</h4>
+      <table class="features-table">
+        <thead>
+        <tr>
+          <th>Название</th>
+          <th><%= link_to 'Добавить', new_category_path, :class => "add"  %></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @categories.each do |category| %>
+            <tr>
+              <td class="grey"><%= link_to category.title, category %></td>
+              <td><%= link_to 'Редактировать', edit_category_path(category) %></td>
+              <td><%= link_to 'Удалить', category, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+          <table class="features-table">
+            <thead>
+                <tr>
+                  <th><h4 class="booking">Жанры</h4></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @categories.each do |category| %>
+                    <tr>
+                      <td><%= link_to category.title, category %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+          </table>
+
+
+    <% end %>
+  <% else %>
+  <table class="features-table">
+            <thead>
+                <tr>
+                  <th><h4 class="booking">Жанры</h4></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @categories.each do |category| %>
+                    <tr>
+                      <td><%= link_to category.title, category %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+          </table>
+<% end %>  
+
+<div class="pages">
+  <%= will_paginate @categories, :class => 'apple_pagination' %>
+</div>

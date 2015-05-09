@@ -1,0 +1,32 @@
+<%if signed_in?%>
+  <% if current_user.admin? %>
+    <h3 class="booking">Статистика продаж книг</h3>
+        <table class="features-table">
+             <thead>
+               <tr>
+                 <th>Название</th>
+                 <th>Количество</th>
+               </tr>
+             </thead>
+             <%  @products.each do |product| %>
+                <% LineItem.where(product_id: product.id).each do |item| %>
+                 <% @protitle = product.title %>
+                <% end %>   
+                  <tbody>
+                    <tr>
+                      <td class="grey"><%= @protitle %></td>
+                      <td><%= LineItem.where(product_id: product.id).count %></td> 
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+         <div class="pages">
+            <%= will_paginate @products, :class => 'apple_pagination' %>
+        </div>
+
+  <% end %>
+  <% end %>
+    
+
+<%= link_to 'Назад', products_path %>        

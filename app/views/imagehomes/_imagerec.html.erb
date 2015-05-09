@@ -1,0 +1,20 @@
+<script>
+
+$(document).ready(function() {
+
+ $('.bxslider').bxSlider({
+   adaptiveHeight: true,
+  mode: 'fade'
+});
+});
+
+
+</script>
+
+<div class="column">
+  <ul class="bxslider">
+    <% @imagehomes.each do |image| %>    
+      <div><%= image_tag image.slider, class: "bx-wrapper" %></div>    
+    <% end %>           
+  </ul>
+</div>

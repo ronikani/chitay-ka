@@ -1,0 +1,37 @@
+ <%if signed_in?%>
+  <% if  current_user.admin? %>
+      <h3 class="booking">Недоставленные</h3>
+
+       <table class="features-table">
+         <thead>
+           <tr>
+             <th>От кого</th>
+             <th>Почта</th>
+             <th>Телефон</th>
+             <th>Адрес</th>
+             <th>Дата</th>
+             <th>Статус</th>
+             <th></th>
+           </tr>
+         </thead>
+             <% @orders.each do |orderi| %>
+                  <tbody>
+                    <tr>
+                      <td><%= orderi.first_name %> <%= orderi.last_name %></td>
+                      <td><%= orderi.user_email %></td>
+                      <td><%= orderi.phone %></td>
+                      <td><%= orderi.adress %></td>
+                      <td><%= orderi.created_at %></td>
+                      <td><%= orderi.status %></td>
+                      <td><%= link_to "Посмотреть", orderi %></td>
+                    </tr>
+                <% end %>
+         </tbody>
+        </table>
+
+     <div class="pages">
+        <%= will_paginate @orders, :class => 'apple_pagination' %>
+    </div>
+
+  <% end %>
+  <% end %>

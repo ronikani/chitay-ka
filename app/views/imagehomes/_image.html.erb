@@ -1,0 +1,35 @@
+
+
+<div class="column">
+  <ul class="bxslider">
+    <% @products.each do |product| %>    
+      <% if product.sale? %>
+        <div>
+           <%= link_to product do %> 
+              <%= image_tag product.photo %>
+          <% end %>
+          <div class="label movie-label radius mb1"><%= product.price %>руб.</div>
+          <div class="label1 movie-label radius mb1"><%= product.old_price %>руб.</div>     
+      </div>  
+      <% end %>  
+    <% end %>           
+  </ul>
+</div>
+
+
+<script>
+
+$(document).ready(function() {
+
+ $('.bxslider').bxSlider({
+   minSlides: 4,
+  maxSlides: 20,
+  slideWidth: 1000,
+  slideMargin: 2,
+  ticker: true,
+  speed: 14000
+});
+});
+
+
+</script>

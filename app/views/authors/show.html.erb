@@ -1,0 +1,38 @@
+ <h5><%= @author.full_name %> (<%= @author.bith_day %>) </h5>
+
+<div>
+
+  
+  <p class="texti">
+ 
+  <%= image_tag @author.photo.url, :class => "leftimg" %>
+   
+    <h6 >Биография:</h6>
+
+    <p class="texti"> 
+        <%= @author.biography %> 
+    </p>
+  </p>
+
+    <div class="bordera">
+      <h5 class="booking"> Библиография </h5>
+    </div>  
+
+<div>
+    <% Product.where(author_id: @author.id).each do |product| %>
+              <p class="booking">  <%= link_to Product.find(product).title, product_path(product)   %> </p>
+    <% end %>
+</div>
+
+</div>
+
+
+
+
+<%if signed_in?%>
+  <% if  current_user.admin? %>
+    <%= link_to 'Редактировать', edit_author_path(@author) %> |
+  <% end %>
+<%end%>
+    <%= link_to 'Назад', authors_path %>
+

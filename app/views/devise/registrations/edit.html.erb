@@ -1,0 +1,46 @@
+
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+
+    <h4 class="column formi">Изменить пароль </h4>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div><%= @current_user_id %></div>
+
+      <div class="field">
+        <%= f.label :password, "Старыйй пароль" %> <br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation , "Новый пароль"%><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :current_password, "Повторите пароль" %> <br />
+        <%= f.password_field :current_password, autocomplete: "off" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Сохранить" %>
+      </div>
+    <% end %>
+    <div class="login">
+    <p>Удалить акаунт</p>
+    </div>
+    <div class="login">
+     <%= button_to "Удалить", registration_path(resource_name), data: { confirm: "Вы уверены?" }, method: :delete %>
+    </div>
+    <br>
+
+  </div>
+</div>
+
+    <%= link_to "Назад", :back %>

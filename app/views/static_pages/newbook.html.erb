@@ -1,0 +1,24 @@
+ <h4 class="column formi">Новинки</h4>
+      <div class="column ">
+          <ul class="movies-grid no-bullet row">
+            <% @products.each do |product| %>
+            	<% if product.new? %>
+               	 <li class="large-3 medium-4 small-12 column pages" >
+                  <div class="movie-card padly">
+                   <div class="ribbon-wrapper-green"><div class="ribbon-green">Новинка</div></div>
+                    <%= link_to product, class: "poster" do %>
+                        <%= image_tag product.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= product.title %></h6>
+                      </div>
+                      <div class="label movie-label radius mb1"> Цена: <%= product.price %>руб.</div>
+                    </div>
+                  </div>
+                </li>
+            <% end %>
+           <% end %> 
+          </ul>
+        </div>
+        </br>

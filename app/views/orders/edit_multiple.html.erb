@@ -1,0 +1,37 @@
+<h3 class="formi">Изменить статус заказов</h3>
+
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+  <%= form_for :order, :url => update_multiple_orders_path, :html => { :method => :put } do |f| %>
+
+     <ul>
+      <% for order in @orders %>
+      <li>
+        <%= h order.user_email %>
+        <%= hidden_field_tag "order_ids[]", order.id%>
+      </li>
+      <% end %>
+    </ul>
+
+		<div class="mb1">
+		    <%= f.label :status, "Статус заказа" %><br>
+		    <p><%= f.select :status, [["Заказ обрабатывается", "Заказ обрабатывается"], ["Отправлен", "Отправлен"], ["Возврат", "Возврат"], ["Недоставлен", "Недоставлен"]], {}, id: "simple-example"   %></p>
+		</div>
+
+		<div class="actions">
+		    <%= f.submit 'Сохранить'%>
+        <%= f.submit 'Удалить',  data: { confirm: 'Вы уверены?' }%>
+		</div>
+
+	<% end %>
+</div>
+<br>
+		
+<%= link_to 'Посмотреть', @order %> |
+<%= link_to 'Назад', orders_path %>
+
+<script>
+      $(document).ready(function() {
+    $('select#simple-example').select2();
+    });
+</script>

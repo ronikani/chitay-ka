@@ -1,0 +1,103 @@
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+    <%= form_for @product, :html => { :multipart => true} do |f| %>
+      <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+          <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb1">
+        <%= f.label :Название %><br>
+        <%= f.text_field :title %>
+      </div>
+
+        <div class="mb1">
+          <%= f.label "Автор" %> <br />
+          <p><%= collection_select(:product,:author_id,@authors,:id,:full_name, {}, id: "simple-example") %></p>
+        </div>
+
+      <div class="mb1">
+        <%= f.label "Категория" %> <br />
+        <p><%= collection_select(:product,:category_id,@categories,:id,:title, {}, id: "simple-example")%></p>
+     
+      </div>
+
+      <div class="mb1">
+        <%= f.label "Издательство" %> <br />
+        <%= f.text_field :publishing %>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :isbn %><br>
+        <%= f.text_field :isbn %>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :cover, "Обложка" %><br>
+        <p><%= f.select :cover, [["Мягкая", "Мягкая"], ["Твердая", "Твердая"]], {}, id: "simple-example"  %></p>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :Описание %><br>
+        <%= f.text_area :description, rows: 6 %>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :Экранизации %><br>
+        <%= f.text_field :filming %>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :Количество_на_складе %><br>
+        <%= f.number_field :quantity %>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :Распродажа %><br>
+        <p><%= f.select :sale, [["Нет", "false"], ["Да", "true"]], {}, id: "simple-example"  %></p>
+      </div>
+
+      <div class="mb1">
+        <%= f.label :new ,"Новинка" %><br>
+        <p><%= f.select :new, ([["Нет", "false"], ["Да", "true"]]), {}, id: "simple-example" %></p>
+      </div>
+
+      <div cclas="mb1">
+        <%= f.label :Цена %><br>
+        <%= f.text_field :price %>
+       </div>
+
+       <div cclas="mb1">
+        <%= f.label :old_price, "Старая цена" %><br>
+        <%= f.text_field :old_price %>
+       </div>
+
+      <div class="mb1">
+        <%= f.label        :Изображение %>
+        <%= f.file_field :photo %>
+        <% if not @product.photo.nil? %>
+          <%= image_tag @product.photo, class: "img-edit" %>
+        <% end %>  
+      </div>
+
+
+      <div class="actions">
+        <%= f.submit "Сохранить", class: "succe"%>
+      </div>
+    <% end %>
+  </div>
+</div>  
+<script>
+      $(document).ready(function() {
+    $('select#simple-example').select2();
+    });
+</script>
+
+    

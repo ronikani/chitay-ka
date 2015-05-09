@@ -1,0 +1,49 @@
+<div class="form-container radius-box glassy-bg small-10 small-centered medium-8 large-6 columns ">
+  <div class="ramka">
+
+    <%= form_for @author, :html => { :multipart => true} do |f| %>
+      <% if @author.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@author.errors.count, "error") %> prohibited this author from being saved:</h2>
+
+          <ul>
+          <% @author.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :full_name, "ФИО"%><br>
+        <%= f.text_field :full_name %>
+      </div>
+      <div class="field">
+        <%= f.label :bith_day, "Дата рождения" %><br>
+        <%= f.date_select :bith_day, {:use_month_names => ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь','Декабрь'],:start_year => Date.current.year, :end_year => 1700},{id: "simple-example" }%>
+      </div>
+      <div class="field">
+        <%= f.label :biography, "Биография" %><br>
+        <%= f.text_area :biography %>
+      </div>
+      <div class="mb1">
+        <%= f.file_field :photo %>
+        <% if not @author.photo.nil? %>
+          <%= image_tag @author.photo , class: "img-edit"%>
+        <% end %>  
+      </div>
+      
+      <div class="actions">
+        <%= f.submit "Сохранить"%>
+      </div>
+    <% end %>
+  </div>
+</div>    
+
+<script>
+      $(document).ready(function() {
+    $('select#simple-example').select2();
+    });
+</script>
+
+    

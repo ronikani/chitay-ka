@@ -1,0 +1,51 @@
+
+<%if signed_in?%>
+  <% if  current_user.admin? %>
+     <h4 class="column formi">Каталог</h4>
+        <table class="features-table pretty">
+          <thead>
+          <tr>
+            <th class="pretty"><%= sortable "title", "Название" %></th>
+            <th >Автор</th>
+            <th>Категория</th>
+            <th class="pretty"><%= sortable "quantity",  "Количество"%></th>
+            <th class="pretty"><%= sortable "price", "Цена" %></th>
+            <th class="pretty"><%= sortable "created_at", "Дата"  %></th>
+            <th class="pretty"><%= link_to 'Добавить', new_product_path, :class => "add" %></th>
+            <th colspan="3"></th>
+          </tr>
+          </thead>
+
+          <tbody>
+
+          <% @products.each do |product| %>
+              <tr>
+                <td class="grey"><%= link_to product.title, product %></td>
+                <td class="grey"><%= link_to  Author.find(product.author_id).full_name,  Author.find(product.author_id)  %></td>
+                <td class="grey"><%= link_to  Category.find(product.category_id).title, Category.find(product.category_id)  %></td>
+                <td class="grey"><%= product.quantity %></td>
+                <td class="grey"><%= product.price %> руб.</td>
+                <td class="grey"><%= product.created_at %></td>
+                <td><%= link_to 'Показать', product %></td>
+                <td><%= link_to 'Редактировать', edit_product_path(product) %></td>
+                <td><%= link_to 'Удалить', product, method: :delete %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+   <% else %>  
+      <%= render "productind" %>
+  <% end %>
+  </br>
+    
+  <% else %>
+      <%= render "productind" %>
+    </br>
+<% end %>
+
+<div class="pages">
+  <%= will_paginate @products, :class => 'apple_pagination' %>
+</div>
+
+
+  

@@ -1,0 +1,33 @@
+<%if signed_in?%>
+  <% if  current_user.admin? %>
+
+      
+
+      <table class="features-table">
+        <thead>
+        <tr>
+          <th>Название</th>
+          <th><%= link_to 'Добавить', new_imagehome_path, :class => "add"  %> </th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @imagehomes.each do |imagehome| %>
+            <tr>
+              <td class="grey"><%= imagehome.title %></td>
+              <td><%= link_to 'Показать', imagehome %></td>
+              <td><%= link_to 'Редактировать', edit_imagehome_path(imagehome) %></td>
+              <td><%= link_to 'Удалить', imagehome, method: :delete, data: { confirm: 'Вы уверены?' } %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+<% end %>      
+
+
+
+
+
+<%= render "image" %>

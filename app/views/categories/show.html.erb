@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h3 class="booking"><%=  @category.title %></h3>
+
+<div class="column">
+  <ul class="movies-grid no-bullet row">
+    <% Product.where(category_id: @category.id).each do |product| %>
+        <li class="large-3 medium-4 small-12 column pages">
+          <div class="movie-card padly">
+            <%= link_to product, class: "poster" do %>
+              <%= image_tag product.photo.url %>
+                <% end %>
+                  <div class="movie-info ell glassy-bg padmy padlx">
+                    <div class="title">
+                      <h6><%= product.title %></h6>
+                    </div>
+                  <p class="left price label movie-label radius"> <%= product.price %> руб.</p>
+                   </div>
+          </div>
+        </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="pages">
+  <%= will_paginate @products, :class => 'apple_pagination' %>
+</div>
+
+
+<%= link_to 'Назад', products_path %>

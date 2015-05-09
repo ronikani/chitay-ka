@@ -1,0 +1,33 @@
+<h3 class="formi">Результат поиска</h3>
+<p><%= link_to "Назад", new_search_path %></p>
+
+<% if @search.search_products.empty? %>
+	
+	<p> Нет результатов удовлетворяющих запросу</p>
+  <% else %>
+
+  
+      <div class="column ">
+          <ul class="movies-grid no-bullet row">
+          <% @search.search_products.each do |c| %>
+
+                <li class="large-3 medium-4 small-12 column pages" >
+                  <div class="movie-card padly">
+                    <%= link_to c, class: "poster" do %>
+                        <%= image_tag c.photo.url %>
+                    <% end %>
+                    <div class="movie-info ell glassy-bg padmy padlx">
+                      <div class="title">
+                        <h6><%= c.title %></h6>
+                      </div>
+                      <p class="left price label movie-label radius"> <%= c.price %> руб.</p>
+                    </div>
+                  </div>
+                </li>
+                 <% end %>
+          </ul>
+        </div>
+
+ 
+  
+<% end %>  	

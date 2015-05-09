@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Название:</strong>
+  <%= @imagehome.title %>
+</p>
+
+  <%= image_tag @imagehome.slider.url %>
+
+<%= link_to 'Редактировать', edit_imagehome_path(@imagehome) %> |
+<%= link_to 'Назад', imagehomes_path %>
